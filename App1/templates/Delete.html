@@ -1,0 +1,14 @@
+{% extends "./base.html" %}
+{% block content %}
+<h2 class="subtitle">{{DeleteRecord}}の削除</h2>
+
+<form action="." method="post">
+    {% csrf_token%}
+    <p>{{DeleteRecord}}を削除しますか</p> 
+
+    <!--更新ボタン-->
+    <button type="submit">削除</button>
+
+</form>
+
+{%endblock%}

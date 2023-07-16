@@ -1,0 +1,42 @@
+{% extends "./base.html" %}
+{% block content %}
+<h2 class="subtitle">{{title}}</h2>
+
+<style>
+  /* <p>要素のマージンをリセット */
+  form p {
+      margin: 0;
+  }
+</style>
+
+<form method="post">
+    {% csrf_token%}
+    {{form.as_p}} 
+    <!--更新ボタン-->
+    <button type="submit">更新</button>
+    {% if IsKeisoku %}
+    <button type="button" id="set-current-Starttime">計測開始</button>
+    <button type="button" id="set-current-Endtime">計測終了</button>
+    {% endif %}
+</form>
+
+<script>
+  //現在時刻をセット
+  document.addEventListener("DOMContentLoaded", function() {    
+    document.getElementById("set-current-Starttime").addEventListener("click", function() {
+      var now = new Date();
+      now.setHours(now.getHours() + 9); //日本時間に合わせるために小細工
+      var dateTimeField = document.getElementById("id_startDateTime");
+      dateTimeField.value = now.toISOString().slice(0, 16);  
+    });
+
+    document.getElementById("set-current-Endtime").addEventListener("click", function() {
+      var now = new Date();
+      now.setHours(now.getHours() + 9); //日本時間に合わせるために小細工
+      var dateTimeField = document.getElementById("id_endDateTime");
+      dateTimeField.value = now.toISOString().slice(0, 16);  
+    });    
+  });
+  </script>
+
+{%endblock%}

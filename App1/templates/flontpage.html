@@ -1,0 +1,50 @@
+{% extends "./base.html" %}{% block content %}
+<h2 class="subtitle">カテゴリ</h2>
+<a href="{% url 'CatRegist' %}">登録</a><hr>
+
+<!--カテゴリをテーブル表示-->
+<table border="1">
+    <tr  bgcolor="pink">
+        <th>　カテゴリ名　</th>
+        <th>　備考　</th>
+        <th>　削除　</th>
+    </tr>
+    {% for cat in categorys %}
+    <tr>        
+        <th><a href="{% url 'CatEdit' cat.slug %}">{{cat.name}}</a></th>
+        <th align="left">{{cat.memo}}</th>
+        <th><a href="{% url 'CatDelete' cat.slug %}">削除</a></th>   
+    </tr>
+    {%endfor%}
+</table>
+
+<hr><h2 class="subtitle">ログ</h2></hr>
+<a href="{% url 'LogRegist' %}">登録</a><hr> 
+
+<!--ログをテーブル表示-->
+<table border="1">
+    <tr  bgcolor="pink">
+        <th>　カテゴリ　</th>
+        <th>　開始時刻　</th>
+        <th>　終了時刻　</th>
+        <th>　勉強時間　</th>
+        <th>　備考　</th>
+        <th>　削除　</th>
+    </tr>
+    {% for log in logs %}
+    <tr>        
+        {% for cat in categorys %}
+        {% if cat == log.category %}
+        <th><a href="{% url 'LogEdit' log.slug %}">{{cat.name}}</a></th>
+        {% endif %}
+        {%endfor%}         
+        <th align="left">{% if log.startDateTime %}{{log.startDateTime}}{% endif %}</th>
+        <th align="left">{% if log.endDateTime %}{{log.endDateTime}}{% endif %}</th>
+        <th>{{log.learnMinut}}分</th>
+        <th align="left">{{log.memo}}</th>
+        <th><a href="{% url 'LogDelete' log.slug %}">削除</a></th>      
+    </tr>
+    {%endfor%}
+</table>
+
+{%endblock%}
