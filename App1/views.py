@@ -6,7 +6,7 @@ from .forms import LogEditForm,CategoryEditForm
 #トップページ
 def flontpage(request):
     categorys = Category.objects.all()
-    logs = Log.objects.all().order_by('-startDateTime','-endDateTime','-id')
+    logs = Log.objects.all().order_by('-learnDate','-startDateTime','-endDateTime','-id')
     return render(request,"./flontpage.html", {"categorys": categorys, "logs": logs})
 
 #修正処理

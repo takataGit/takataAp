@@ -25,6 +25,7 @@
 <table border="1">
     <tr  bgcolor="pink">
         <th>　カテゴリ　</th>
+        <th>　勉強日　</th>
         <th>　開始時刻　</th>
         <th>　終了時刻　</th>
         <th>　勉強時間　</th>
@@ -37,7 +38,8 @@
         {% if cat == log.category %}
         <th><a href="{% url 'LogEdit' log.slug %}">{{cat.name}}</a></th>
         {% endif %}
-        {%endfor%}         
+        {%endfor%}
+        <th>{% if log.learnDate %}{{log.learnDate}}{% endif %}</th>         
         <th align="left">{% if log.startDateTime %}{{log.startDateTime}}{% endif %}</th>
         <th align="left">{% if log.endDateTime %}{{log.endDateTime}}{% endif %}</th>
         <th>{{log.learnMinut}}分</th>

@@ -20,6 +20,7 @@ class Category(models.Model):
 class Log(models.Model):
     startDateTime = models.DateTimeField(null=True,blank=True)
     endDateTime = models.DateTimeField(null=True,blank=True)
+    learnDate = models.DateField(null=True,blank=True)
     learnMinut = models.IntegerField(null=True,blank=True)
     category = models.ForeignKey(Category, on_delete=models.PROTECT)
     memo = models.CharField(null=True,blank=True,max_length=255)
