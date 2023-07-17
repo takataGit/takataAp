@@ -51,7 +51,7 @@ def Delete(request,slug,model,recordStr):
                    
         record.delete()
         return flontpage(request)
-    return render(request, './delete.html', {"record": record, "DeleteRecord": recordStr})
+    return render(request, './Delete.html', {"record": record, "DeleteRecord": recordStr})
 
 #登録処理
 def LogRegist(request):
