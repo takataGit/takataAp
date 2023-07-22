@@ -9,11 +9,7 @@ class Category(models.Model):
     
     def save(self, *args, **kwargs):
         if not self.slug:  # スラッグが未設定の場合のみ生成する
-            self.slug = slugify('Cat'+ self.name) 
-        if Log.objects.filter(slug=self.slug).exists():
-            # すでに同じスラッグが存在する場合は、一意なスラッグを生成する
-            random_string = get_random_string(length=5)  # 5文字のランダム文字列を生成
-            self.slug = f"{self.slug}-{random_string}"             
+            self.slug = slugify('Cat'+ self.memo + get_random_string(length=5))            
             
         super().save(*args, **kwargs)       
 
@@ -28,12 +24,8 @@ class Log(models.Model):
     
     def save(self, *args, **kwargs):
         if not self.slug:  # スラッグが未設定の場合のみ生成する
-            self.slug = slugify('log'+ self.memo) 
-        if Log.objects.filter(slug=self.slug).exists():
-            # すでに同じスラッグが存在する場合は、一意なスラッグを生成する
-            random_string = get_random_string(length=5)  # 5文字のランダム文字列を生成
-            self.slug = f"{self.slug}-{random_string}"             
+            self.slug = slugify('log'+ self.memo + get_random_string(length=5))             
             
-        super().save(*args, **kwargs)
+        super().save(*args, **kwargs)       
     
    

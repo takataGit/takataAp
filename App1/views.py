@@ -2,7 +2,6 @@ from django.shortcuts import render,redirect,get_object_or_404
 from .models import Category,Log
 from .forms import LogEditForm,CategoryEditForm
 
-
 #トップページ
 def flontpage(request):
     categorys = Category.objects.all()
@@ -75,6 +74,7 @@ def Regist(request,Form,titleStr,IsLog):
 #結果ページ
 def ResultPage(request, Msg):
      return render(request,"./Result.html", {"Msg": Msg})
+ 
 
 
  

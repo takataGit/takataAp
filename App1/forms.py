@@ -59,5 +59,5 @@ class CategoryEditForm(ModelForm):
     class Meta:
         model = Category
         fields ={"name","memo"}
-        labels ={"name":"カテゴリ名","memo":"備考"}
+        labels ={"name":"カテゴリ名","memo":"備考"}    
     
