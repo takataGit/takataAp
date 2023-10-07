@@ -10,19 +10,20 @@ class CustomDateTimeInput(DateTimeInput):
     input_type = 'datetime-local'
     format = '%Y-%m-%dT%H:%M:%S'
 
-class LogEditForm(ModelForm):
+class LogEditForm(ModelForm):    
     startDateTime= forms.DateTimeField(required=False,widget=CustomDateTimeInput,label='開始時間')
     endDateTime= forms.DateTimeField(required=False,widget=CustomDateTimeInput,label='終了時間')
     learnDate= forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}),required=False,label='勉強日時（直接入力）')
     learnMinut= forms.IntegerField(required=False,label='勉強時間（直接入力）/単位:分')
     category = CustomModelChoiceField(queryset=Category.objects.all(),label='カテゴリ')
     memo = forms.CharField(required=False,label='備考')
-    
-    field_order = ['startDateTime','endDateTime','learnDate','learnMinut','category','memo']             
-    class Meta:
-        model = Log
-        fields ={"startDateTime","endDateTime",'learnDate',"learnMinut","category","memo"}
         
+    field_order = ['startDateTime','endDateTime','learnDate','learnMinut','category','memo']             
+        
+    def __init__(self, *args, user=None, **kwargs):
+        super(LogEditForm, self).__init__(*args, **kwargs)
+        self.fields['category']  = CustomModelChoiceField(queryset=Category.objects.filter(user=user),label='カテゴリ')
+               
     def clean(self):
         cleaned_data = super().clean()
         sd=self.cleaned_data.get('startDateTime')
@@ -50,14 +51,25 @@ class LogEditForm(ModelForm):
                      
         return cleaned_data
     
+    class Meta:
+        model = Log
+        fields ={"startDateTime","endDateTime",'learnDate',"learnMinut","category","memo"}
+    
     
 class CategoryEditForm(ModelForm):
     name=  forms.CharField(label='カテゴリ名') 
     memo = forms.CharField(required=False,label='備考') 
     field_order = ['name','memo']   
-    
+ 
+    def __init__(self, *args, user=None, **kwargs):
+        super(CategoryEditForm, self).__init__(*args, **kwargs)
+            
     class Meta:
         model = Category
         fields ={"name","memo"}
-        labels ={"name":"カテゴリ名","memo":"備考"}    
+        labels ={"name":"カテゴリ名","memo":"備考"}
+        
+class CSVUploadForm(forms.Form):
+    csv_file = forms.FileField(required=True)
+            
     

@@ -1,0 +1,14 @@
+{% extends "./base.html" %}
+{% block content %}
+<h2 class="subtitle">ログのCSV読み込み</h2>
+
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token%}
+    {{ form.as_p }} 
+
+    <!--更新ボタン-->
+    <button class="button is-primary" type="submit">読込</button>
+
+</form>
+
+{%endblock%}

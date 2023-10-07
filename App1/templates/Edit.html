@@ -13,10 +13,10 @@
     {% csrf_token%}
     {{form.as_p}} 
     <!--更新ボタン-->
-    <button type="submit">更新</button>
+    <button class="button is-primary" type="submit">更新</button>
     {% if IsKeisoku %}
-    <button type="button" id="set-current-Starttime">計測開始</button>
-    <button type="button" id="set-current-Endtime">計測終了</button>
+    <button class="button is-primary" type="button" id="set-current-Starttime">計測開始</button>
+    <button class="button is-primary" type="button" id="set-current-Endtime">計測終了</button>
     {% endif %}
 </form>
 

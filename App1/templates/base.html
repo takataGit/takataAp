@@ -5,11 +5,27 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>学習記録</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css"
+    />    
   </head>
   <body>
-    <h1><font color = 'Red'>学習記録</font></h1>
+    <nav class="navbar is-primary">
+      <div class="navbar-brand">
+        <div class="navbar-item">
+          <p>学習記録<p>
+          {% if user.is_authenticated %} 
+          <p>(ログイン：{{user.username}})</p>
+          <a href="{% url 'logout' %}">ログアウト</a>
+          {% else %}
+          <p>(ログインされていません)</p>  
+          {% endif %}
+        </div>            
+      </div>
+    </nav>    
     {% block content %} {% endblock %}
 
-    <br><a href="{% url 'flontpage' %}">Top</a></br> 
+    <hr><a href="{% url 'flontpage' %}">Topページ</a></hr> 
   </body>
 </html>

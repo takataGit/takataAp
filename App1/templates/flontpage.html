@@ -1,29 +1,36 @@
 {% extends "./base.html" %}{% block content %}
-<h2 class="subtitle">カテゴリ</h2>
-<a href="{% url 'CatRegist' %}">登録</a><hr>
+<h1 class="title is-3">カテゴリ</h1>
+<a href="{% url 'CatRegist' %}">登録</a>
 
+{% if categorys %}
 <!--カテゴリをテーブル表示-->
 <table border="1">
-    <tr  bgcolor="pink">
+    <tr  bgcolor="aquamarine">
         <th>　カテゴリ名　</th>
         <th>　備考　</th>
         <th>　削除　</th>
     </tr>
     {% for cat in categorys %}
-    <tr>        
+    <tr>      
         <th><a href="{% url 'CatEdit' cat.slug %}">{{cat.name}}</a></th>
         <th align="left">{{cat.memo}}</th>
-        <th><a href="{% url 'CatDelete' cat.slug %}">削除</a></th>   
+        <th><a href="{% url 'CatDelete' cat.slug %}">削除</a></th>  
     </tr>
     {%endfor%}
 </table>
-
-<hr><h2 class="subtitle">ログ</h2></hr>
-<a href="{% url 'LogRegist' %}">登録</a><hr> 
-
+{% else %}
+<p>まずはカテゴリを登録しましょう。</p>
+{% endif %} 
+<hr><h1 class="title is-3">ログ</h1>
+{% if categorys %}
+<a href="{% url 'LogRegist' %}">登録</a>
+{% else %} 
+<p>ログはカテゴリを登録してから登録して下さい。</p>
+{% endif %}
+{% if logs %} 
 <!--ログをテーブル表示-->
 <table border="1">
-    <tr  bgcolor="pink">
+    <tr  bgcolor="aquamarine">
         <th>　カテゴリ　</th>
         <th>　勉強日　</th>
         <th>　開始時刻　</th>
@@ -48,5 +55,7 @@
     </tr>
     {%endfor%}
 </table>
-
+<a href="{% url 'export_csv' %}">CSV切り出し</a><br>
+<a href="{% url 'upload_csv' %}">CSV読み込み</a>
+{% endif %}
 {%endblock%}

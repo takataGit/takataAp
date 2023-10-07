@@ -15,18 +15,21 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import include,path
 
-from App1.views import flontpage,LogEdit,LogRegist,CatEdit,CatRegist,LogDelete,CatDelete,ResultPage
+from App1.views import flontpage,LogEdit,LogRegist,CatEdit,CatRegist,LogDelete,CatDelete,ResultPage,export_csv,upload_csv
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',flontpage, name="flontpage"),
     path('',ResultPage, name="ResultPage"),
     path("LogEdit/<slug:slug>/", LogEdit, name="LogEdit"),
-    path(r'^LogRegist/', LogRegist, name="LogRegist"),
+    path("LogRegist/", LogRegist, name="LogRegist"),
     path("CatEdit/<slug:slug>/", CatEdit, name="CatEdit"),
-    path(r'^CatRegist/', CatRegist, name="CatRegist"),
+    path("CatRegist/", CatRegist, name="CatRegist"),
     path('LogDelete/<slug:slug>/', LogDelete, name='LogDelete'),
-    path('CatDelete/<slug:slug>/', CatDelete, name='CatDelete'),    
+    path('CatDelete/<slug:slug>/', CatDelete, name='CatDelete'),
+    path('accounts/', include('django.contrib.auth.urls')),
+    path('export/', export_csv, name='export_csv'), 
+    path('upload/', upload_csv, name='upload_csv'),   
 ]
