@@ -8,12 +8,14 @@
     <tr  bgcolor="aquamarine">
         <th>　カテゴリ名　</th>
         <th>　備考　</th>
+        <th>　合計勉強時間　</th>        
         <th>　削除　</th>
     </tr>
     {% for cat in categorys %}
     <tr>      
         <th><a href="{% url 'CatEdit' cat.slug %}">{{cat.name}}</a></th>
         <th align="left">{{cat.memo}}</th>
+        <th align="left">{% if cat.total_learn_minut %}{{cat.total_learn_minut}}{% endif %}</th>
         <th><a href="{% url 'CatDelete' cat.slug %}">削除</a></th>  
     </tr>
     {%endfor%}
@@ -27,6 +29,8 @@
 {% else %} 
 <p>ログはカテゴリを登録してから登録して下さい。</p>
 {% endif %}
+
+<p>本日の勉強時間：{{total_learn_minut_today}}分</p>
 {% if logs %} 
 <!--ログをテーブル表示-->
 <table border="1">
@@ -56,6 +60,5 @@
     {%endfor%}
 </table>
 <a href="{% url 'export_csv' %}">CSV切り出し</a><br>
-<a href="{% url 'upload_csv' %}">CSV読み込み</a>
 {% endif %}
 {%endblock%}

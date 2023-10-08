@@ -8,14 +8,21 @@ import codecs
 from datetime import datetime, time
 from pytz import timezone
 import pandas as pd
+from django.db.models import Sum
+from datetime import date
 
 
 #トップページ
 @login_required
 def flontpage(request):
-    categorys = Category.objects.filter(user=request.user)
+    categorys = Category.objects.filter(user=request.user).order_by('name').annotate(total_learn_minut=Sum('log__learnMinut'));
     logs = Log.objects.filter(user=request.user).order_by('-learnDate','-startDateTime','-endDateTime','-id')
-    return render(request,"./flontpage.html", {"categorys": categorys, "logs": logs,})
+    #本日の勉強時間取得 
+    today = date.today()
+    total_learn_minut_today = Log.objects.filter(learnDate=today).aggregate(total_learn_minut=Sum('learnMinut'))['total_learn_minut'] 
+    return render(request,"./flontpage.html", {"categorys": categorys, 
+                                               "logs": logs,
+                                               "total_learn_minut_today": total_learn_minut_today})
 
 #修正処理
 @login_required
