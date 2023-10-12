@@ -30,7 +30,7 @@
 <p>ログはカテゴリを登録してから登録して下さい。</p>
 {% endif %}
 
-<p>本日の勉強時間：{{total_learn_minut_today}}分</p>
+<p>本日の勉強時間：{% if total_learn_minut_today %}{{total_learn_minut_today}}分{% endif %}</p>
 {% if logs %} 
 <!--ログをテーブル表示-->
 <table border="1">

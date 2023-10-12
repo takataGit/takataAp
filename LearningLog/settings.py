@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-z5*y5s*n1-0v_@-z)v+79j3kkzpb&o4t41r8hz(l4d^ed=^dh^
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['localhost', '.pythonanywhere.com', 'takatapython.pythonanywhere.com']
 
 
 # Application definition
@@ -124,3 +124,7 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
+
